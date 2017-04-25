@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tcollier/distance.svg?branch=master)](https://travis-ci.org/tcollier/distance)
+
 # Distance
 
 Convenience methods for using distances
