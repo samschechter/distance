@@ -20,7 +20,55 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+There are multiple options for constructing a new `Distance` instance. The basic
+constructor expects an `Float` argument that is the distannce is meters, e.g.
+
+```ruby
+eight_hundred_meters = Distance.new(800)
+```
+
+If you are working with different units, you can construct a new instance with the
+following convenience class methods
+
+```ruby
+ten_miles = Distance.miles(10)
+five_km = Distance.kilometers(5)
+```
+
+Once you have a `Distance` instance, you can convert it to another base unit like
+
+```ruby
+ten_miles.to_kilometers
+# => 16.09344
+five_km.to_miles
+# => 3.11
+```
+
+### Distance math
+
+You can perform basic math with distances
+
+```ruby
+Distance.new(1) + Distance.new(2)
+# => Distance.new(3)
+Distance.new(3) - Distance.new(1)
+# => Distance.new(2)
+Distance.new(3) * 2
+# => Distance.new(6)
+Distance.new(6) / 2
+# => Distance.new(3)
+```
+
+### Distance equality
+
+You can also compare distances
+
+```ruby
+Distance.new(10) > Distance.new(9)
+# => true
+Distance.miles(10) <= Distance.kilometers(10)
+# => false
+```
 
 ## Development
 

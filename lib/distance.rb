@@ -23,10 +23,6 @@ class Distance
     new(n * Multiplier::MILE)
   end
 
-  def in_kilometers?
-    distance_in_meters % Multiplier::KILOMETER == 0
-  end
-
   def to_f
     distance_in_meters
   end
@@ -39,9 +35,57 @@ class Distance
     distance_in_meters / Multiplier::KILOMETER
   end
 
+  def +(other)
+    unless other.is_a?(Distance)
+      raise ArgumentError, 'Can only add a Distance to a Distance'
+    end
+    Distance.new(to_f + other.to_f)
+  end
+
+  def -(other)
+    unless other.is_a?(Distance)
+      raise ArgumentError, 'Can only subtract a Distance from a Distance'
+    end
+    Distance.new(to_f - other.to_f)
+  end
+
+  def *(multiplier)
+    unless multiplier.is_a?(Numeric)
+      raise ArgumentError, 'Can only multiply a Distance with a number'
+    end
+    Distance.new(to_f * multiplier)
+  end
+
+  def /(divisor)
+    unless divisor.is_a?(Numeric)
+      raise ArgumentError, 'Can only divide a Distance by a number'
+    end
+    Distance.new(to_f / divisor)
+  end
+
+  def >(other)
+    return false unless other.is_a?(Distance)
+    to_f > other.to_f
+  end
+
+  def >=(other)
+    return false unless other.is_a?(Distance)
+    to_f >= other.to_f
+  end
+
   def ==(other)
     return false unless other.is_a?(Distance)
-    (to_f - other.to_f).abs < 0.01
+    to_f == other.to_f
+  end
+
+  def <(other)
+    return false unless other.is_a?(Distance)
+    to_f < other.to_f
+  end
+
+  def <=(other)
+    return false unless other.is_a?(Distance)
+    to_f <= other.to_f
   end
 
   private
