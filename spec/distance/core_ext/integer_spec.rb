@@ -2,8 +2,6 @@ require_relative '../../../lib/distance/core_ext/integer'
 require_relative '../../../lib/distance/core_ext/numeric'
 
 RSpec.describe Integer do
-  FLOATING_POINT_TOLERANCE = 0.0001
-
   describe '#kilometers' do
     it 'returns a Distance instance with the correct number of meters' do
       distance = 5.kilometers
