@@ -1,5 +1,6 @@
 RSpec.describe Distance do
   FLOATING_POINT_TOLERANCE = 0.0001
+  
   describe '.kilometers' do
     it 'returns a Distance instance with 1000 times the value supplied' do
       subject = Distance.kilometers(4)

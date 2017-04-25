@@ -72,6 +72,25 @@ Distance.miles(10) <= Distance.kilometers(10)
 # => false
 ```
 
+### Numeric core extensions
+
+You can optionally enable core extensions to `Float` and `Integer` by
+
+```ruby
+require 'distance/core_ext'
+```
+
+This adds the following convenience methods to `Float` and `Integer`
+
+```ruby
+26.2.miles
+# => Distance.miles(26.2)
+1.kilometer
+# => Distance.kilometers(1)
+5 * Distance.new(1000)
+# => Distance.new(5000)
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
