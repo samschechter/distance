@@ -46,6 +46,18 @@ five_km.to_miles
 # => 3.11
 ```
 
+### Supported units
+
+* inches
+* feet
+* meters
+* kilometers
+* miles
+
+Additionally, the following constants are available
+
+* `Distance::MARATHON`
+
 ### Distance math
 
 You can perform basic math with distances

@@ -7,11 +7,35 @@ RSpec.describe Distance do
     end
   end
 
+  describe '.meters' do
+    it 'returns a Distance instance with the value supplied' do
+      subject = Distance.meters(4)
+      expect(subject).to be_a(Distance)
+      expect(subject.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(4)
+    end
+  end
+
   describe '.kilometers' do
     it 'returns a Distance instance with 1000 times the value supplied' do
       subject = Distance.kilometers(4)
       expect(subject).to be_a(Distance)
       expect(subject.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(4000)
+    end
+  end
+
+  describe '.inches' do
+    it 'returns a Distance instance with 0.0254 times the value supplied' do
+      subject = Distance.inches(1000)
+      expect(subject).to be_a(Distance)
+      expect(subject.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(25.4)
+    end
+  end
+
+  describe '.feet' do
+    it 'returns a Distance instance with 0.3048 times the value supplied' do
+      subject = Distance.feet(100)
+      expect(subject).to be_a(Distance)
+      expect(subject.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(30.48)
     end
   end
 
@@ -23,16 +47,8 @@ RSpec.describe Distance do
     end
   end
 
-  describe '::HALF_MARATHON' do
-    it 'returns a Distance of 21097.5 meteres' do
-      subject = Distance::HALF_MARATHON
-      expect(subject).to be_a(Distance)
-      expect(subject.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(21097.5)
-    end
-  end
-
   describe '::MARATHON' do
-    it 'returns a Distance of 42195 meteres' do
+    it 'returns a Distance of 42195 meters' do
       subject = Distance::MARATHON
       expect(subject).to be_a(Distance)
       expect(subject.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(42195)
@@ -46,10 +62,24 @@ RSpec.describe Distance do
     end
   end
 
+  describe '#to_inches' do
+    it 'returns the initializer argument / 1609.344' do
+      subject = Distance.meters(100)
+      expect(subject.to_inches).to be_within(FLOATING_POINT_TOLERANCE).of(3937.0079)
+    end
+  end
+
+  describe '#to_feet' do
+    it 'returns the initializer argument / 1609.344' do
+      subject = Distance.meters(100)
+      expect(subject.to_feet).to be_within(FLOATING_POINT_TOLERANCE).of(328.084)
+    end
+  end
+
   describe '#to_miles' do
     it 'returns the initializer argument / 1609.344' do
       subject = Distance.meters(10000)
-      expect(subject.to_miles).to be_within(FLOATING_POINT_TOLERANCE).of(6.21)
+      expect(subject.to_miles).to be_within(FLOATING_POINT_TOLERANCE).of(6.2137)
     end
   end
 
