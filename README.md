@@ -26,7 +26,7 @@ There are multiple options for constructing a new `Distance` instance. The basic
 constructor expects an `Float` argument that is the distannce is meters, e.g.
 
 ```ruby
-eight_hundred_meters = Distance.new(800)
+eight_hundred_meters = Distance.meters(800)
 ```
 
 If you are working with different units, you can construct a new instance with the
@@ -51,14 +51,14 @@ five_km.to_miles
 You can perform basic math with distances
 
 ```ruby
-Distance.new(1) + Distance.new(2)
-# => Distance.new(3)
-Distance.new(3) - Distance.new(1)
-# => Distance.new(2)
-Distance.new(3) * 2
-# => Distance.new(6)
-Distance.new(6) / 2
-# => Distance.new(3)
+Distance.meters(1) + Distance.meters(2)
+# => Distance.meters(3)
+Distance.meters(3) - Distance.meters(1)
+# => Distance.meters(2)
+Distance.meters(3) * 2
+# => Distance.meters(6)
+Distance.meters(6) / 2
+# => Distance.meters(3)
 ```
 
 ### Distance equality
@@ -66,7 +66,7 @@ Distance.new(6) / 2
 You can also compare distances
 
 ```ruby
-Distance.new(10) > Distance.new(9)
+Distance.meters(10) > Distance.meters(9)
 # => true
 Distance.miles(10) <= Distance.kilometers(10)
 # => false
@@ -87,8 +87,8 @@ This adds the following convenience methods to `Float` and `Integer`
 # => Distance.miles(26.2)
 1.kilometer
 # => Distance.kilometers(1)
-5 * Distance.new(1000)
-# => Distance.new(5000)
+5 * Distance.meters(100)
+# => Distance.meters(500)
 ```
 
 ## Development

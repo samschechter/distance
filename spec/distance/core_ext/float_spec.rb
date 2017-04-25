@@ -37,7 +37,7 @@ RSpec.describe Float do
   describe '#*' do
     context 'when the other instance is a Distance' do
       it 'returns a distance instance that is the N times the original distance' do
-        product = 2.5 * Distance.new(4)
+        product = 2.5 * Distance.meters(4)
         expect(product).to be_a(Distance)
         expect(product.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(10)
       end

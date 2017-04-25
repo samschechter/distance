@@ -1,4 +1,12 @@
 RSpec.describe Distance do
+  describe '.new' do
+    it 'is not public' do
+      expect do
+        Distance.new(1)
+      end.to raise_error(NoMethodError, "private method `new' called for Distance:Class")
+    end
+  end
+
   describe '.kilometers' do
     it 'returns a Distance instance with 1000 times the value supplied' do
       subject = Distance.kilometers(4)
@@ -33,21 +41,21 @@ RSpec.describe Distance do
 
   describe '#to_kilometers' do
     it 'returns the initializer argument / 1000' do
-      subject = Distance.new(1525)
+      subject = Distance.meters(1525)
       expect(subject.to_kilometers).to be_within(FLOATING_POINT_TOLERANCE).of(1.525)
     end
   end
 
   describe '#to_miles' do
     it 'returns the initializer argument / 1609.344' do
-      subject = Distance.new(10000)
+      subject = Distance.meters(10000)
       expect(subject.to_miles).to be_within(FLOATING_POINT_TOLERANCE).of(6.21)
     end
   end
 
   describe '#+' do
     it 'returns a distance instance that is the sum of the 2 distances' do
-      sum = Distance.new(1.23) + Distance.new(4.44)
+      sum = Distance.meters(1.23) + Distance.meters(4.44)
       expect(sum).to be_a(Distance)
       expect(sum.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(5.67)
     end
@@ -55,7 +63,7 @@ RSpec.describe Distance do
     context 'when the second object is not a distance' do
       it 'raises an ArgumentError' do
         expect do
-          Distance.new(1) + 1
+          Distance.meters(1) + 1
         end.to raise_error(ArgumentError, 'Can only add a Distance to a Distance')
       end
     end
@@ -63,7 +71,7 @@ RSpec.describe Distance do
 
   describe '#-' do
     it 'returns a distance instance that is the difference of the 2 distances' do
-      difference = Distance.new(5.67) - Distance.new(4.44)
+      difference = Distance.meters(5.67) - Distance.meters(4.44)
       expect(difference).to be_a(Distance)
       expect(difference.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(1.23)
     end
@@ -71,7 +79,7 @@ RSpec.describe Distance do
     context 'when the second object is not a distance' do
       it 'raises an ArgumentError' do
         expect do
-          Distance.new(1) - 1
+          Distance.meters(1) - 1
         end.to raise_error(ArgumentError, 'Can only subtract a Distance from a Distance')
       end
     end
@@ -80,7 +88,7 @@ RSpec.describe Distance do
   describe '#*' do
     context 'when the second object is a Integer' do
       it 'returns a distance instance that is the N times the original distance' do
-        product = Distance.new(2.5) * 4
+        product = Distance.meters(2.5) * 4
         expect(product).to be_a(Distance)
         expect(product.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(10)
       end
@@ -88,7 +96,7 @@ RSpec.describe Distance do
 
     context 'when the second object is a Float' do
       it 'returns a distance instance that is the N times the original distance' do
-        product = Distance.new(4) * 2.5
+        product = Distance.meters(4) * 2.5
         expect(product).to be_a(Distance)
         expect(product.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(10)
       end
@@ -97,7 +105,7 @@ RSpec.describe Distance do
     context 'when the second object is a distance' do
       it 'raises an ArgumentError' do
         expect do
-          Distance.new(1) * Distance.new(1)
+          Distance.meters(1) * Distance.meters(1)
         end.to raise_error(ArgumentError, 'Can only multiply a Distance with a number')
       end
     end
@@ -106,7 +114,7 @@ RSpec.describe Distance do
   describe '#/' do
     context 'when the second object is a Integer' do
       it 'returns a distance instance that is 1/N the original distance' do
-        product = Distance.new(10) / 4
+        product = Distance.meters(10) / 4
         expect(product).to be_a(Distance)
         expect(product.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(2.5)
       end
@@ -114,7 +122,7 @@ RSpec.describe Distance do
 
     context 'when the second object is a Float' do
       it 'returns a distance instance that is 1/N the original distance' do
-        product = Distance.new(10) / 2.5
+        product = Distance.meters(10) / 2.5
         expect(product).to be_a(Distance)
         expect(product.to_f).to be_within(FLOATING_POINT_TOLERANCE).of(4)
       end
@@ -123,7 +131,7 @@ RSpec.describe Distance do
     context 'when the second object is a distance' do
       it 'raises an ArgumentError' do
         expect do
-          Distance.new(1) / Distance.new(1)
+          Distance.meters(1) / Distance.meters(1)
         end.to raise_error(ArgumentError, 'Can only divide a Distance by a number')
       end
     end
@@ -133,31 +141,31 @@ RSpec.describe Distance do
     context 'when the other object is not a distance' do
       describe '#>' do
         it 'returns false' do
-          expect(Distance.new(1) > 1).to eq(false)
+          expect(Distance.meters(1) > 1).to eq(false)
         end
       end
 
       describe '#>=' do
         it 'returns false' do
-          expect(Distance.new(1) >= 1).to eq(false)
+          expect(Distance.meters(1) >= 1).to eq(false)
         end
       end
 
       describe '#==' do
         it 'returns false' do
-          expect(Distance.new(1) == 1).to eq(false)
+          expect(Distance.meters(1) == 1).to eq(false)
         end
       end
 
       describe '#<=' do
         it 'returns false' do
-          expect(Distance.new(1) <= 1).to eq(false)
+          expect(Distance.meters(1) <= 1).to eq(false)
         end
       end
 
       describe '#<' do
         it 'returns false' do
-          expect(Distance.new(1) < 1).to eq(false)
+          expect(Distance.meters(1) < 1).to eq(false)
         end
       end
     end
@@ -165,31 +173,31 @@ RSpec.describe Distance do
     context 'when the other object is a shorter distance' do
       describe '#>' do
         it 'returns true' do
-          expect(Distance.new(1) > Distance.new(0.99)).to eq(true)
+          expect(Distance.meters(1) > Distance.meters(0.99)).to eq(true)
         end
       end
 
       describe '#>=' do
         it 'returns true' do
-          expect(Distance.new(1) >= Distance.new(0.99)).to eq(true)
+          expect(Distance.meters(1) >= Distance.meters(0.99)).to eq(true)
         end
       end
 
       describe '#==' do
         it 'returns false' do
-          expect(Distance.new(1) == Distance.new(0.99)).to eq(false)
+          expect(Distance.meters(1) == Distance.meters(0.99)).to eq(false)
         end
       end
 
       describe '#<=' do
         it 'returns false' do
-          expect(Distance.new(1) <= Distance.new(0.99)).to eq(false)
+          expect(Distance.meters(1) <= Distance.meters(0.99)).to eq(false)
         end
       end
 
       describe '#<' do
         it 'returns false' do
-          expect(Distance.new(1) < Distance.new(0.99)).to eq(false)
+          expect(Distance.meters(1) < Distance.meters(0.99)).to eq(false)
         end
       end
     end
@@ -197,31 +205,31 @@ RSpec.describe Distance do
     context 'when the other object is the same distance' do
       describe '#>' do
         it 'returns false' do
-          expect(Distance.new(1) > Distance.new(1)).to eq(false)
+          expect(Distance.meters(1) > Distance.meters(1)).to eq(false)
         end
       end
 
       describe '#>=' do
         it 'returns true' do
-          expect(Distance.new(1) >= Distance.new(1)).to eq(true)
+          expect(Distance.meters(1) >= Distance.meters(1)).to eq(true)
         end
       end
 
       describe '#==' do
         it 'returns true' do
-          expect(Distance.new(1) == Distance.new(1)).to eq(true)
+          expect(Distance.meters(1) == Distance.meters(1)).to eq(true)
         end
       end
 
       describe '#<=' do
         it 'returns true' do
-          expect(Distance.new(1) <= Distance.new(1)).to eq(true)
+          expect(Distance.meters(1) <= Distance.meters(1)).to eq(true)
         end
       end
 
       describe '#<' do
         it 'returns false' do
-          expect(Distance.new(1) < Distance.new(1)).to eq(false)
+          expect(Distance.meters(1) < Distance.meters(1)).to eq(false)
         end
       end
     end
@@ -229,31 +237,31 @@ RSpec.describe Distance do
     context 'when the other object is a longer distance' do
       describe '#>' do
         it 'returns false' do
-          expect(Distance.new(1) > Distance.new(1.01)).to eq(false)
+          expect(Distance.meters(1) > Distance.meters(1.01)).to eq(false)
         end
       end
 
       describe '#>=' do
         it 'returns false' do
-          expect(Distance.new(1) >= Distance.new(1.01)).to eq(false)
+          expect(Distance.meters(1) >= Distance.meters(1.01)).to eq(false)
         end
       end
 
       describe '#==' do
         it 'returns false' do
-          expect(Distance.new(1) == Distance.new(1.01)).to eq(false)
+          expect(Distance.meters(1) == Distance.meters(1.01)).to eq(false)
         end
       end
 
       describe '#<=' do
         it 'returns true' do
-          expect(Distance.new(1) <= Distance.new(1.01)).to eq(true)
+          expect(Distance.meters(1) <= Distance.meters(1.01)).to eq(true)
         end
       end
 
       describe '#<' do
         it 'returns true' do
-          expect(Distance.new(1) < Distance.new(1.01)).to eq(true)
+          expect(Distance.meters(1) < Distance.meters(1.01)).to eq(true)
         end
       end
     end
