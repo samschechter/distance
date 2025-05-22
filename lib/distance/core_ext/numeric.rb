@@ -28,4 +28,16 @@ class Numeric
   end
 
   alias_method :mile, :miles
+
+  def millimeters
+    Distance.millimeters(self)
+  end
+
+  alias_method :millimeter, :millimeters
+
+  def centimeters
+    Distance.centimeters(self)
+  end
+
+  alias_method :centimeter, :centimeters
 end

@@ -3,6 +3,9 @@ require 'distance/version'
 class Distance
   # Multipliers from standard race units to meters
   module Multiplier
+    MILLIMETER = 0.001
+    CENTIMETERS = 0.01
+    METER     = 1.0
     KILOMETER = 1000.0
     INCH      = 0.0254
     FOOT      = 0.3048
@@ -38,6 +41,14 @@ class Distance
     new(n * Multiplier::MILE)
   end
 
+  def self.millimeters(n)
+    new(n * Multiplier::MILLIMETER)
+  end
+
+  def self.centimeters(n)
+    new(n * Multiplier::CENTIMETERS)
+  end
+
   def to_f
     distance_in_meters
   end
@@ -56,6 +67,14 @@ class Distance
 
   def to_miles
     (distance_in_meters / Multiplier::MILE)
+  end
+
+  def to_millimeters
+    (distance_in_meters / Multiplier::MILLIMETER)
+  end
+
+  def to_centimeters
+    (distance_in_meters / Multiplier::CENTIMETERS)
   end
 
   def +(other)
